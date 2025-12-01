@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Mordida | Parrilla em Santana</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            dark: '#0a0a0a',
+                            surface: '#121212',
+                            blue: '#89CFF0', // Azul Bebê
+                            blueHover: '#6EB5E6'
+                        }
+                    },
+                    fontFamily: {
+                        loubag: ['"Loubag"', '"Anton"', 'sans-serif'],
+                        body: ['"Inter"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-gradient': 'linear-gradient(to bottom, rgba(5,5,5,0.3) 0%, rgba(5,5,5,0.8) 80%, rgba(5,5,5,1) 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Configuração da Fonte Local (Simulação para Anton caso Loubag falhe) */
+        @font-face {
+            font-family: 'Loubag';
+            src: url('Loubag.woff2') format('woff2'),
+                 url('Loubag.woff') format('woff');
+            font-display: swap;
+        }
+
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Botão WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 100;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px -5px rgba(137, 207, 240, 0.4);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .img-cover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-blue selection:text-black">
+
+    <!-- Navbar -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 bg-gradient-to-b from-black/90 to-transparent">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- LOGO -->
+            <a href="#" class="block w-40 md:w-52 transition-transform hover:scale-105">
+                <img src="logo.png" alt="La Mordida Logo" class="w-full h-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+            </a>
+
+            <!-- Menu Desktop -->
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#sobre" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">A Casa</a>
+                <a href="#cardapio" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Menu</a>
+                <a href="#eventos" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Eventos</a>
+                <a href="#localizacao" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Local</a>
+                
+                <!-- Botão Navbar redirecionando para WhatsApp -->
+                <a href="https://wa.me/5511912100277" target="_blank" class="px-8 py-3 bg-white text-black text-xs font-bold uppercase tracking-[0.2em] hover:bg-brand-blue transition-all">
+                    Reservas <i class="fab fa-whatsapp ml-1"></i>
+                </a>
+            </div>
+
+            <!-- Menu Mobile Button -->
+            <button id="mobile-btn" class="md:hidden text-2xl text-white">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-brand-black/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-500 flex flex-col justify-center items-center gap-8">
+        <button id="close-mobile" class="absolute top-8 right-8 text-brand-blue text-4xl">&times;</button>
+        <a href="#sobre" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">SOBRE</a>
+        <a href="#cardapio" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">MENU</a>
+        <a href="#eventos" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">EVENTOS</a>
+        <a href="#localizacao" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">LOCAL</a>
+        <a href="https://wa.me/5511912100277" target="_blank" class="mobile-link font-loubag text-5xl text-brand-blue">RESERVAS</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden" id="sobre">
+        <!-- Background Image Logic -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-hero-gradient z-10"></div>
+            <!-- Tag picture para alternar imagens de forma nativa e performática -->
+            <picture>
+                <!-- Desktop Image (banner2.png) -->
+                <source media="(min-width: 1024px)" srcset="banner2.png">
+                <!-- Mobile/Tablet Image (banner.jpg fallback) -->
+                <img src="banner.jpg" class="w-full h-full object-cover" alt="Banner La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+            </picture>
+        </div>
+
+        <!-- Content -->
+        <div class="container mx-auto px-6 relative z-20 text-center">
+            <div class="mb-6 animate-[fadeInDown_1s_ease-out]">
+                <span class="px-4 py-1 border border-brand-blue rounded-full text-brand-blue text-[10px] font-bold tracking-[0.3em] uppercase bg-black/50 backdrop-blur-sm">
+                    Zona Norte • Santana
+                </span>
+            </div>
+            
+            <h1 class="font-loubag text-6xl md:text-8xl lg:text-[9rem] leading-[0.9] text-white mb-8 animate-[fadeInUp_1s_ease-out] drop-shadow-2xl">
+                TRADIÇÃO & <br> <span class="text-brand-blue">BRASA</span>
+            </h1>
+            
+            <p class="text-gray-300 text-sm md:text-lg max-w-xl mx-auto mb-12 font-light leading-relaxed animate-[fadeInUp_1.2s_ease-out]">
+                A autêntica parrilla argentina no coração de Santana. <br>
+                Cortes selecionados, ambiente acolhedor e vinhos excepcionais.
+            </p>
+            
+            <div class="animate-[fadeInUp_1.4s_ease-out]">
+                <a href="#cardapio" class="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden font-bold text-white transition-all duration-300 bg-transparent border border-white hover:bg-white hover:text-black">
+                    <span class="mr-2 text-xs uppercase tracking-[0.2em]">Conhecer o Menu</span>
+                    <i class="fas fa-arrow-down transform group-hover:translate-y-1 transition-transform text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Cardápio -->
+    <section id="cardapio" class="py-24 bg-brand-black border-b border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">Experiência Gastronômica</span>
+                <h2 class="font-loubag text-5xl md:text-7xl">NOSSOS CORTES</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[800px]">
+                
+                <!-- Destaque: Almoco Executivo -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal">
+                    <!-- ALTERADO PARA almoco.png -->
+                    <img src="almoco.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Almoço Executivo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-90"></div>
+                    <div class="absolute bottom-0 left-0 p-8">
+                        <h3 class="font-loubag text-4xl mb-2 text-white">ALMOÇO EXECUTIVO</h3>
+                        <p class="text-gray-400 text-sm max-w-sm">Entrada, prato principal e sobremesa. A experiência completa por um valor especial.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2: Bife de Chorizo -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-100">
+                    <!-- ALTERADO PARA bife.png -->
+                    <img src="bife.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bife de Chorizo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-loubag text-2xl text-brand-blue">BIFE DE CHORIZO</h3>
+                    </div>
+                </div>
+
+                <!-- Item 3: Entradas -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-200">
+                    <!-- ALTERADO PARA entrada.png -->
+                    <img src="entrada.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Empanadas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1626804475297-411dbe6234ab?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-loubag text-2xl text-brand-blue">ENTRADAS</h3>
+                    </div>
+                </div>
+
+                <!-- Item 4: Bebidas -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-300">
+                    <!-- ALTERADO PARA bebida.jpg -->
+                    <img src="bebida.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-loubag text-2xl text-brand-blue">DRINKS</h3>
+                    </div>
+                </div>
+
+                <!-- Item 5: Sobremesas -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-400">
+                    <!-- ALTERADO PARA sobremesa.png -->
+                    <img src="sobremesa.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Sobremesa" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop';">
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+                    <div class="absolute bottom-4 left-4">
+                        <h3 class="font-loubag text-2xl text-brand-blue">SOBREMESAS</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Botão do Cardápio Completo DESTACADO -->
+            <div class="text-center mt-12 animate-[fadeInUp_1.4s_ease-out]">
+                <a href="cardapio.pdf" target="_blank" class="group relative inline-flex items-center justify-center px-12 py-4 overflow-hidden font-bold text-black transition-all duration-300 bg-brand-blue hover:bg-white hover:scale-105 rounded-sm shadow-[0_0_20px_rgba(137,207,240,0.3)]">
+                    <span class="mr-2 text-xs uppercase tracking-[0.2em]">Baixar Menu (PDF)</span>
+                    <i class="fas fa-file-pdf transform group-hover:-translate-y-1 transition-transform text-lg"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Eventos & Reservas (ANTEPENÚLTIMA DOBRA) -->
+    <section id="eventos" class="py-24 bg-brand-black relative overflow-hidden border-b border-white/5">
+        <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-surface skew-x-12 translate-x-20 hidden lg:block"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col lg:flex-row gap-16 items-center">
+                
+                <div class="lg:w-1/2 reveal">
+                    <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs">Faça sua Reserva</span>
+                    <h2 class="font-loubag text-5xl md:text-7xl mt-4 mb-6 text-white">REÚNA OS <br>AMIGOS.</h2>
+                    <p class="text-gray-400 text-lg leading-relaxed mb-8 font-light">
+                        Garanta sua mesa para o almoço de negócios ou jantar em família. Para grupos maiores ou eventos, consulte nossa disponibilidade.
+                    </p>
+                    <div class="flex items-center gap-4 text-sm text-gray-500">
+                        <i class="fas fa-glass-cheers text-brand-blue"></i>
+                        <span>Rooftop</span>
+                        <span class="w-1 h-1 bg-gray-700 rounded-full"></span>
+                        <i class="fas fa-wifi text-brand-blue"></i>
+                        <span>Wi-Fi Gratuito</span>
+                    </div>
+                </div>
+
+                <!-- Formulário -->
+                <div class="lg:w-1/2 w-full reveal delay-100">
+                    <div class="bg-brand-surface p-8 md:p-12 border border-white/5 rounded-2xl shadow-2xl">
+                        <h3 class="font-loubag text-3xl mb-8 text-white">SOLICITAR EVENTO</h3>
+                        
+                        <form class="space-y-6">
+                            <div class="group">
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Nome</label>
+                                <input type="text" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="Seu nome">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="group">
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Data</label>
+                                    <input type="text" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="DD/MM">
+                                </div>
+                                <div class="group">
+                                    <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Pessoas</label>
+                                    <input type="number" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="2">
+                                </div>
+                            </div>
+                            
+                            <div class="group">
+                                <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Telefone</label>
+                                <input type="tel" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="(11) 99999-9999">
+                            </div>
+
+                            <button class="w-full py-4 bg-brand-blue text-black font-bold uppercase tracking-widest hover:bg-white transition-all mt-4">
+                                Confirmar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Localização & Visite (Unificado Lado a Lado) -->
+    <section id="localizacao" class="bg-brand-dark border-b border-white/5">
+        <div class="grid md:grid-cols-2">
+            <!-- Coluna 1: Mapa -->
+            <div class="h-[500px] md:h-[650px] relative w-full group overflow-hidden">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.828691583685!2d-46.62776322369466!3d-23.502693861453273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5881077732e7%3A0x1d37803e481198b1!2sR.%20Prof.%20Lourival%20Gomes%20Machado%2C%20274%20-%20Santana%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2002021-050!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                    class="w-full h-full grayscale invert brightness-75 contrast-125 group-hover:grayscale-0 group-hover:invert-0 transition-all duration-700" 
+                    allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+                <div class="absolute top-4 left-4 bg-black/80 backdrop-blur px-4 py-2 rounded border-l-2 border-brand-blue pointer-events-none">
+                    <span class="text-white text-xs font-bold uppercase tracking-wide">Santana, SP</span>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Fachada + Info -->
+            <div class="relative h-[500px] md:h-[650px] group">
+                <img src="fachada.png" class="w-full h-full object-cover" alt="Fachada La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop';">
+                
+                <div class="absolute inset-0 bg-black/70 flex flex-col justify-center p-12 md:p-20">
+                    <div class="border-l-2 border-brand-blue pl-6 reveal">
+                        <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">La Mordida Santana</span>
+                        <h2 class="font-loubag text-5xl text-white mb-8">VISITE-NOS</h2>
+                        
+                        <div class="space-y-8">
+                            <div>
+                                <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-2 flex items-center gap-2">
+                                    <i class="fas fa-map-marker-alt"></i> Endereço
+                                </h4>
+                                <p class="text-gray-200 text-sm md:text-base leading-relaxed">
+                                    R. Prof. Lourival Gomes Machado, 274 - 272<br>
+                                    Santana, São Paulo - SP
+                                </p>
+                            </div>
+                            
+                            <div>
+                                <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-2 flex items-center gap-2">
+                                    <i class="far fa-clock"></i> Horários
+                                </h4>
+                                <ul class="text-gray-200 text-sm space-y-1">
+                                    <li class="flex justify-between max-w-[200px]"><span class="text-gray-500">Segunda:</span> <span>Fechado</span></li>
+                                    <li class="flex justify-between max-w-[200px]"><span class="text-gray-500">Ter - Sáb:</span> <span>12:00 – 23:00</span></li>
+                                    <li class="flex justify-between max-w-[200px]"><span class="text-gray-500">Domingo:</span> <span>12:00 – 18:00</span></li>
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-2 flex items-center gap-2">
+                                    <i class="fas fa-phone"></i> Contato
+                                </h4>
+                                <p class="text-gray-200 text-lg font-semibold">(11) 2308-6400</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black py-16 border-t border-white/5 relative z-30">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+                <div class="w-32 opacity-80 hover:opacity-100 transition-opacity">
+                     <img src="logo.png" alt="La Mordida" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+                </div>
+
+                <div class="text-center md:text-right text-gray-500 text-sm">
+                    <p class="mb-1">Santana, São Paulo</p>
+                    <p class="text-brand-blue font-bold">@lamordidaparrilla</p>
+                </div>
+
+                <div class="flex gap-6">
+                    <a href="https://www.instagram.com/lamordidaparrilla/" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/laMordidazn/?locale=pt_BR" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-600 uppercase tracking-wider">
+                <p>&copy; 2024 La Mordida Parrilla.</p>
+                <div class="flex gap-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition-colors">Privacidade</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Flutuante -->
+    <a href="https://wa.me/5511912100277" target="_blank" class="whatsapp-float flex items-center justify-center w-16 h-16 bg-brand-blue rounded-full text-black hover:bg-white hover:scale-110 shadow-lg group">
+        <i class="fab fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Navbar Scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black', 'shadow-2xl', 'py-3');
+                navbar.classList.remove('bg-gradient-to-b', 'py-4');
+            } else {
+                navbar.classList.remove('bg-black', 'shadow-2xl', 'py-3');
+                navbar.classList.add('bg-gradient-to-b', 'py-4');
+            }
+        });
+
+        // Mobile Menu
+        const mobileBtn = document.getElementById('mobile-btn');
+        const closeMobile = document.getElementById('close-mobile');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            document.body.classList.toggle('overflow-hidden');
+        }
+
+        mobileBtn.addEventListener('click', toggleMenu);
+        closeMobile.addEventListener('click', toggleMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+        // Reveal Animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
