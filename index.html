@@ -42,11 +42,18 @@
     </script>
 
     <style>
-        /* Configuração da Fonte Local (Simulação para Anton caso Loubag falhe) */
+        /* CORREÇÃO DA FONTE:
+           Agora o código procura pelo arquivo 'Loubag-Medium' em vários formatos.
+           Certifique-se de que o arquivo na pasta do projeto tenha EXATAMENTE um desses nomes.
+        */
         @font-face {
             font-family: 'Loubag';
-            src: url('Loubag.woff2') format('woff2'),
-                 url('Loubag.woff') format('woff');
+            src: url('Loubag-Medium.woff2') format('woff2'),
+                 url('Loubag-Medium.woff') format('woff'),
+                 url('Loubag-Medium.ttf') format('truetype'),
+                 url('Loubag-Medium.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
             font-display: swap;
         }
 
