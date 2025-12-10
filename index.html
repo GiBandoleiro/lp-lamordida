@@ -26,7 +26,8 @@
                             dark: '#0a0a0a',
                             surface: '#121212',
                             blue: '#89CFF0', // Azul Bebê
-                            blueHover: '#6EB5E6'
+                            blueHover: '#6EB5E6',
+                            whatsapp: '#25D366' // Verde WhatsApp Oficial
                         }
                     },
                     fontFamily: {
@@ -42,10 +43,6 @@
     </script>
 
     <style>
-        /* CORREÇÃO DA FONTE:
-           Agora o código procura pelo arquivo 'Loubag-Medium' em vários formatos.
-           Certifique-se de que o arquivo na pasta do projeto tenha EXATAMENTE um desses nomes.
-        */
         @font-face {
             font-family: 'Loubag';
             src: url('Loubag-Medium.woff2') format('woff2'),
@@ -81,16 +78,29 @@
             right: 30px;
             z-index: 100;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px -5px rgba(137, 207, 240, 0.4);
+            box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.4);
         }
         .whatsapp-float:hover {
             transform: scale(1.1);
+            box-shadow: 0 15px 35px -5px rgba(37, 211, 102, 0.6);
         }
 
         .img-cover {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        /* Carousel Styles */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
         }
     </style>
 </head>
@@ -108,6 +118,7 @@
             <div class="hidden md:flex items-center gap-10">
                 <a href="#sobre" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">A Casa</a>
                 <a href="#cardapio" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Menu</a>
+                <a href="#ambiente" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Ambiente</a>
                 <a href="#eventos" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Eventos</a>
                 <a href="#localizacao" class="text-xs font-bold uppercase hover:text-brand-blue transition-colors tracking-[0.2em]">Local</a>
                 
@@ -129,9 +140,10 @@
         <button id="close-mobile" class="absolute top-8 right-8 text-brand-blue text-4xl">&times;</button>
         <a href="#sobre" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">SOBRE</a>
         <a href="#cardapio" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">MENU</a>
+        <a href="#ambiente" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">AMBIENTE</a>
         <a href="#eventos" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">EVENTOS</a>
         <a href="#localizacao" class="mobile-link font-loubag text-5xl hover:text-brand-blue transition-colors">LOCAL</a>
-        <a href="https://wa.me/5511912100277" target="_blank" class="mobile-link font-loubag text-5xl text-brand-blue">RESERVAS</a>
+        <a href="https://wa.me/5511912100277" target="_blank" class="mobile-link font-loubag text-5xl text-brand-whatsapp">RESERVAS</a>
     </div>
 
     <!-- Hero Section -->
@@ -139,12 +151,9 @@
         <!-- Background Image Logic -->
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-hero-gradient z-10"></div>
-            <!-- Tag picture para alternar imagens de forma nativa e performática -->
             <picture>
-                <!-- Desktop Image (banner2.png) -->
-                <source media="(min-width: 1024px)" srcset="banner2.png">
-                <!-- Mobile/Tablet Image (banner.jpg fallback) -->
-                <img src="banner.jpg" class="w-full h-full object-cover" alt="Banner La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
+                <source media="(min-width: 1024px)" srcset="banner2.webp">
+                <img src="banner.webp" class="w-full h-full object-cover" alt="Banner La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1920&auto=format&fit=crop';">
             </picture>
         </div>
 
@@ -186,8 +195,7 @@
                 
                 <!-- Destaque: Almoco Executivo -->
                 <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal">
-                    <!-- ALTERADO PARA almoco.png -->
-                    <img src="almoco.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Almoço Executivo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
+                    <img src="almoco.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Almoço Executivo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-90"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <h3 class="font-loubag text-4xl mb-2 text-white">ALMOÇO EXECUTIVO</h3>
@@ -197,8 +205,7 @@
 
                 <!-- Item 2: Bife de Chorizo -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-100">
-                    <!-- ALTERADO PARA bife.png -->
-                    <img src="bife.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bife de Chorizo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop';">
+                    <img src="bife.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bife de Chorizo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                     <div class="absolute bottom-4 left-4">
                         <h3 class="font-loubag text-2xl text-brand-blue">BIFE DE CHORIZO</h3>
@@ -207,8 +214,7 @@
 
                 <!-- Item 3: Entradas -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-200">
-                    <!-- ALTERADO PARA entrada.png -->
-                    <img src="entrada.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Empanadas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1626804475297-411dbe6234ab?q=80&w=800&auto=format&fit=crop';">
+                    <img src="entrada.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Empanadas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1626804475297-411dbe6234ab?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                     <div class="absolute bottom-4 left-4">
                         <h3 class="font-loubag text-2xl text-brand-blue">ENTRADAS</h3>
@@ -217,8 +223,7 @@
 
                 <!-- Item 4: Bebidas -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-300">
-                    <!-- ALTERADO PARA bebida.jpg -->
-                    <img src="bebida.jpg" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
+                    <img src="bebida.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                     <div class="absolute bottom-4 left-4">
                         <h3 class="font-loubag text-2xl text-brand-blue">DRINKS</h3>
@@ -227,8 +232,7 @@
 
                 <!-- Item 5: Sobremesas -->
                 <div class="relative group overflow-hidden rounded-xl reveal delay-400">
-                    <!-- ALTERADO PARA sobremesa.png -->
-                    <img src="sobremesa.png" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Sobremesa" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop';">
+                    <img src="sobremesa.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Sobremesa" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop';">
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
                     <div class="absolute bottom-4 left-4">
                         <h3 class="font-loubag text-2xl text-brand-blue">SOBREMESAS</h3>
@@ -236,7 +240,6 @@
                 </div>
             </div>
             
-            <!-- Botão do Cardápio Completo DESTACADO -->
             <div class="text-center mt-12 animate-[fadeInUp_1.4s_ease-out]">
                 <a href="cardapio.pdf" target="_blank" class="group relative inline-flex items-center justify-center px-12 py-4 overflow-hidden font-bold text-black transition-all duration-300 bg-brand-blue hover:bg-white hover:scale-105 rounded-sm shadow-[0_0_20px_rgba(137,207,240,0.3)]">
                     <span class="mr-2 text-xs uppercase tracking-[0.2em]">Baixar Menu (PDF)</span>
@@ -246,7 +249,47 @@
         </div>
     </section>
 
-    <!-- Seção Eventos & Reservas (ANTEPENÚLTIMA DOBRA) -->
+    <!-- NOVA SEÇÃO: AMBIENTE (CARROSSEL) -->
+    <section id="ambiente" class="py-24 bg-brand-surface border-b border-white/5 relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">Acolhedor & Moderno</span>
+                <h2 class="font-loubag text-5xl md:text-7xl">NOSSO AMBIENTE</h2>
+            </div>
+
+            <!-- Carousel Container -->
+            <div class="relative w-full max-w-5xl mx-auto h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl reveal group">
+                <!-- Track -->
+                <div class="carousel-track" id="carouselTrack">
+                    <!-- Slides serão gerados via JS, mas o HTML base é este -->
+                </div>
+
+                <!-- Controls -->
+                <button id="prevBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-brand-blue hover:text-black text-white p-4 rounded-full transition-all z-10 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                    <i class="fas fa-chevron-left text-xl"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-brand-blue hover:text-black text-white p-4 rounded-full transition-all z-10 backdrop-blur-sm opacity-0 group-hover:opacity-100">
+                    <i class="fas fa-chevron-right text-xl"></i>
+                </button>
+
+                <!-- Dots -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10" id="carouselDots">
+                    <!-- Dots gerados via JS -->
+                </div>
+            </div>
+
+            <!-- NOVO BOTÃO ADICIONADO AQUI -->
+            <div class="text-center mt-10 reveal">
+                <a href="https://www.instagram.com/lamordidaparrilla/" target="_blank" class="group relative inline-flex items-center gap-3 px-8 py-3 border border-brand-blue text-brand-blue font-bold uppercase tracking-[0.2em] text-xs hover:bg-brand-blue hover:text-black transition-all duration-300 rounded-sm">
+                    <span>Veja Mais</span>
+                    <i class="fab fa-instagram text-lg group-hover:scale-110 transition-transform"></i>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Seção Eventos & Reservas -->
     <section id="eventos" class="py-24 bg-brand-black relative overflow-hidden border-b border-white/5">
         <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-surface skew-x-12 translate-x-20 hidden lg:block"></div>
 
@@ -305,13 +348,13 @@
         </div>
     </section>
 
-    <!-- Seção Localização & Visite (Unificado Lado a Lado) -->
+    <!-- Seção Localização & Visite -->
     <section id="localizacao" class="bg-brand-dark border-b border-white/5">
         <div class="grid md:grid-cols-2">
-            <!-- Coluna 1: Mapa -->
-            <div class="h-[500px] md:h-[650px] relative w-full group overflow-hidden">
+            <!-- Coluna 1: Mapa (ATUALIZADO PARA Nº 274) -->
+            <div class="h-[600px] md:h-auto relative w-full group overflow-hidden">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.828691583685!2d-46.62776322369466!3d-23.502693861453273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5881077732e7%3A0x1d37803e481198b1!2sR.%20Prof.%20Lourival%20Gomes%20Machado%2C%20274%20-%20Santana%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2002021-050!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.828691583685!2d-46.62776322369466!3d-23.502693861453273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5881077732e7%3A0x1d37803e481198b1!2sR.%20Prof.%20Lourival%20Gomes%20Machado%2C%20274%20-%20Santana%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
                     class="w-full h-full grayscale invert brightness-75 contrast-125 group-hover:grayscale-0 group-hover:invert-0 transition-all duration-700" 
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
@@ -321,8 +364,8 @@
             </div>
 
             <!-- Coluna 2: Fachada + Info -->
-            <div class="relative h-[500px] md:h-[650px] group">
-                <img src="fachada.png" class="w-full h-full object-cover" alt="Fachada La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop';">
+            <div class="relative h-[650px] md:h-[750px] group">
+                <img src="fachada.webp" class="w-full h-full object-cover" alt="Fachada La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop';">
                 
                 <div class="absolute inset-0 bg-black/70 flex flex-col justify-center p-12 md:p-20">
                     <div class="border-l-2 border-brand-blue pl-6 reveal">
@@ -336,7 +379,8 @@
                                 </h4>
                                 <p class="text-gray-200 text-sm md:text-base leading-relaxed">
                                     R. Prof. Lourival Gomes Machado, 274 - 272<br>
-                                    Santana, São Paulo - SP
+                                    Santana, São Paulo - SP<br>
+                                    <span class="text-xs text-gray-500">CEP: 02021-050</span>
                                 </p>
                             </div>
                             
@@ -357,6 +401,22 @@
                                 </h4>
                                 <p class="text-gray-200 text-lg font-semibold">(11) 2308-6400</p>
                             </div>
+
+                            <!-- Botões de Navegação (ATUALIZADOS) -->
+                            <div class="pt-4">
+                                <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-4 flex items-center gap-2">
+                                    <i class="fas fa-location-arrow"></i> Como Chegar
+                                </h4>
+                                <div class="flex flex-wrap gap-4">
+                                    <a href="https://waze.com/ul?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&navigate=yes" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-brand-blue hover:text-brand-blue text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 rounded">
+                                            <i class="fab fa-waze text-xl"></i> Waze
+                                    </a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+São+Paulo+-+SP" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-brand-blue hover:text-brand-blue text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 rounded">
+                                            <i class="fas fa-map-marked-alt text-xl"></i> Maps
+                                    </a>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -377,12 +437,16 @@
                     <p class="text-brand-blue font-bold">@lamordidaparrilla</p>
                 </div>
 
-                <div class="flex gap-6">
+                <div class="flex gap-4">
                     <a href="https://www.instagram.com/lamordidaparrilla/" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-instagram text-xl"></i>
                     </a>
                     <a href="https://www.facebook.com/laMordidazn/?locale=pt_BR" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <!-- Botão Waze no Footer (ATUALIZADO PARA Nº 274) -->
+                    <a href="https://waze.com/ul?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&navigate=yes" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
+                        <i class="fab fa-waze text-xl"></i>
                     </a>
                 </div>
             </div>
@@ -396,8 +460,8 @@
         </div>
     </footer>
 
-    <!-- WhatsApp Flutuante -->
-    <a href="https://wa.me/5511912100277" target="_blank" class="whatsapp-float flex items-center justify-center w-16 h-16 bg-brand-blue rounded-full text-black hover:bg-white hover:scale-110 shadow-lg group">
+    <!-- WhatsApp Flutuante (VERDE) -->
+    <a href="https://wa.me/5511912100277" target="_blank" class="whatsapp-float flex items-center justify-center w-16 h-16 bg-brand-whatsapp rounded-full text-white hover:bg-white hover:text-brand-whatsapp hover:scale-110 shadow-lg group">
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
 
@@ -440,6 +504,85 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // --- Lógica do Carrossel de Ambiente ---
+        const track = document.getElementById('carouselTrack');
+        const dotsContainer = document.getElementById('carouselDots');
+        
+        // Gerar 6 imagens (ambiente1.webp até ambiente6.webp)
+        const imagesCount = 6;
+        let currentSlide = 0;
+
+        // Fallback de imagens bonitas caso não existam as imagens locais
+        const unsplashFallbacks = [
+            'photo-1517248135467-4c7edcad34c4',
+            'photo-1559339352-11d035aa65de',
+            'photo-1550966871-3ed3c47e2ce2',
+            'photo-1551632436-cbf8dd354ca8',
+            'photo-1552566626-52f8b828add9',
+            'photo-1555396273-367ea4eb4db5',
+            'photo-1514362545857-3bc16c4c7d1b',
+            'photo-1505275350441-83dcda8eeef5'
+        ];
+
+        for (let i = 1; i <= imagesCount; i++) {
+            // Criar Slide
+            const slide = document.createElement('div');
+            slide.classList.add('carousel-slide');
+            const img = document.createElement('img');
+            img.src = `ambiente${i}.webp`;
+            img.alt = `Ambiente La Mordida ${i}`;
+            img.classList.add('w-full', 'h-full', 'object-cover');
+            
+            // Adicionar fallback para você ver o funcionamento agora
+            const fallbackId = unsplashFallbacks[i-1];
+            img.onerror = function() {
+                this.onerror = null;
+                this.src = `https://images.unsplash.com/${fallbackId}?q=80&w=1200&auto=format&fit=crop`;
+            };
+
+            slide.appendChild(img);
+            track.appendChild(slide);
+
+            // Criar Dot
+            const dot = document.createElement('button');
+            dot.classList.add('w-2', 'h-2', 'rounded-full', 'bg-white/50', 'hover:bg-brand-blue', 'transition-colors');
+            dot.addEventListener('click', () => goToSlide(i - 1));
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = dotsContainer.querySelectorAll('button');
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // Atualizar Dots
+            dots.forEach((dot, index) => {
+                if (index === currentSlide) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-brand-blue', 'w-6'); // Active state
+                } else {
+                    dot.classList.add('bg-white/50');
+                    dot.classList.remove('bg-brand-blue', 'w-6');
+                }
+            });
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            if (currentSlide < 0) currentSlide = imagesCount - 1;
+            if (currentSlide >= imagesCount) currentSlide = 0;
+            updateCarousel();
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => goToSlide(currentSlide - 1));
+        document.getElementById('nextBtn').addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        // Auto play opcional (a cada 15 segundos)
+        setInterval(() => goToSlide(currentSlide + 1), 15000);
+
+        // Inicializar
+        updateCarousel();
     </script>
 </body>
 </html>
