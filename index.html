@@ -261,7 +261,7 @@
             <div class="relative w-full max-w-5xl mx-auto h-[400px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl reveal group">
                 <!-- Track -->
                 <div class="carousel-track" id="carouselTrack">
-                    <!-- Slides serão gerados via JS, mas o HTML base é este -->
+                    <!-- Slides serão gerados via JS -->
                 </div>
 
                 <!-- Controls -->
@@ -278,7 +278,6 @@
                 </div>
             </div>
 
-            <!-- NOVO BOTÃO ADICIONADO AQUI -->
             <div class="text-center mt-10 reveal">
                 <a href="https://www.instagram.com/lamordidaparrilla/" target="_blank" class="group relative inline-flex items-center gap-3 px-8 py-3 border border-brand-blue text-brand-blue font-bold uppercase tracking-[0.2em] text-xs hover:bg-brand-blue hover:text-black transition-all duration-300 rounded-sm">
                     <span>Veja Mais</span>
@@ -351,10 +350,10 @@
     <!-- Seção Localização & Visite -->
     <section id="localizacao" class="bg-brand-dark border-b border-white/5">
         <div class="grid md:grid-cols-2">
-            <!-- Coluna 1: Mapa (ATUALIZADO PARA Nº 274) -->
+            <!-- Coluna 1: Mapa (ATUALIZADO COM QUERY PARA Nº 274) -->
             <div class="h-[600px] md:h-auto relative w-full group overflow-hidden">
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3658.828691583685!2d-46.62776322369466!3d-23.502693861453273!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce5881077732e7%3A0x1d37803e481198b1!2sR.%20Prof.%20Lourival%20Gomes%20Machado%2C%20274%20-%20Santana%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" 
+                    src="https://maps.google.com/maps?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&z=17&output=embed" 
                     class="w-full h-full grayscale invert brightness-75 contrast-125 group-hover:grayscale-0 group-hover:invert-0 transition-all duration-700" 
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
@@ -363,11 +362,11 @@
                 </div>
             </div>
 
-            <!-- Coluna 2: Fachada + Info -->
-            <div class="relative h-[650px] md:h-[750px] group">
-                <img src="fachada.webp" class="w-full h-full object-cover" alt="Fachada La Mordida" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514933651103-005eec06c04b?q=80&w=800&auto=format&fit=crop';">
+            <!-- Coluna 2: Fachada + Info (Fundo alterado para gradiente) -->
+            <div class="relative h-[650px] md:h-[750px] group bg-gradient-to-br from-brand-surface via-brand-dark to-black">
+                <!-- Imagem removida -->
                 
-                <div class="absolute inset-0 bg-black/70 flex flex-col justify-center p-12 md:p-20">
+                <div class="absolute inset-0 flex flex-col justify-center p-12 md:p-20">
                     <div class="border-l-2 border-brand-blue pl-6 reveal">
                         <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">La Mordida Santana</span>
                         <h2 class="font-loubag text-5xl text-white mb-8">VISITE-NOS</h2>
@@ -402,17 +401,17 @@
                                 <p class="text-gray-200 text-lg font-semibold">(11) 2308-6400</p>
                             </div>
 
-                            <!-- Botões de Navegação (ATUALIZADOS) -->
+                            <!-- Botões de Navegação -->
                             <div class="pt-4">
                                 <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-4 flex items-center gap-2">
                                     <i class="fas fa-location-arrow"></i> Como Chegar
                                 </h4>
                                 <div class="flex flex-wrap gap-4">
                                     <a href="https://waze.com/ul?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&navigate=yes" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-brand-blue hover:text-brand-blue text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 rounded">
-                                            <i class="fab fa-waze text-xl"></i> Waze
+                                                <i class="fab fa-waze text-xl"></i> Waze
                                     </a>
                                     <a href="https://www.google.com/maps/dir/?api=1&destination=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+São+Paulo+-+SP" target="_blank" class="px-6 py-3 border border-gray-600 hover:border-brand-blue hover:text-brand-blue text-white text-xs font-bold uppercase tracking-widest transition-all flex items-center gap-2 rounded">
-                                            <i class="fas fa-map-marked-alt text-xl"></i> Maps
+                                                <i class="fas fa-map-marked-alt text-xl"></i> Maps
                                     </a>
                                 </div>
                             </div>
@@ -444,7 +443,7 @@
                     <a href="https://www.facebook.com/laMordidazn/?locale=pt_BR" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-facebook-f text-xl"></i>
                     </a>
-                    <!-- Botão Waze no Footer (ATUALIZADO PARA Nº 274) -->
+                    <!-- Botão Waze no Footer -->
                     <a href="https://waze.com/ul?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&navigate=yes" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-waze text-xl"></i>
                     </a>
