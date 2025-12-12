@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>La Mordida | Parrilla em Santana - São Paulo</title>
     
-    <!-- Favicon -->
+    <!-- Favicon (Mantido icone.png apenas aqui) -->
     <link rel="icon" href="icone.png" type="image/png">
     
     <!-- Tailwind CSS -->
@@ -126,7 +126,7 @@
 
         /* Mini Slide transition */
         .mini-slide-img {
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.5s ease-in-out; /* Acelerado um pouco para feedback do clique */
         }
 
         /* Modal Blur Animation */
@@ -156,9 +156,11 @@
     <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 bg-gradient-to-b from-black/90 to-transparent">
         <div class="container mx-auto flex justify-between items-center">
-            <!-- LOGO -->
+            <!-- LOGO: Usa logo.png tanto no mobile quanto desktop -->
             <a href="#" class="block w-40 md:w-52 transition-transform hover:scale-105">
-                <img src="logo.png" alt="La Mordida Logo" class="w-12 h-auto object-contain inline-block mr-2 md:hidden">
+                <!-- Mobile Logo -->
+                <img src="logo.png" alt="La Mordida Logo" class="w-full h-auto object-contain inline-block md:hidden" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+                <!-- Desktop Logo -->
                 <img src="logo.png" alt="La Mordida Logo" class="w-full h-auto object-contain hidden md:block" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
             </a>
 
@@ -262,7 +264,8 @@
                 </div>
 
                 <!-- Item 2: Nossos Cortes -->
-                <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 bg-gray-900" id="cortes-container">
+                <!-- ADICIONADO h-64 md:h-auto para aparecer no mobile -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 bg-gray-900 h-64 md:h-auto" id="cortes-container">
                     <div class="absolute inset-0 w-full h-full" id="cortes-slides"></div>
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
                     <div class="absolute bottom-4 left-4 z-20">
@@ -271,7 +274,8 @@
                 </div>
 
                 <!-- Item 3: Entradas -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-200 bg-gray-900" id="entradas-container">
+                <!-- ADICIONADO h-64 md:h-auto para aparecer no mobile -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-200 bg-gray-900 h-64 md:h-auto" id="entradas-container">
                     <div class="absolute inset-0 w-full h-full" id="entradas-slides"></div>
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
                     <div class="absolute bottom-4 left-4 z-20">
@@ -280,7 +284,8 @@
                 </div>
 
                 <!-- Item 4: Sobremesas -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-300 bg-gray-900" id="sobremesas-container">
+                <!-- ADICIONADO h-64 md:h-auto para aparecer no mobile -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-300 bg-gray-900 h-64 md:h-auto" id="sobremesas-container">
                      <div class="absolute inset-0 w-full h-full" id="sobremesas-slides"></div>
                     <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
                     <div class="absolute bottom-4 left-4 z-20">
@@ -475,7 +480,8 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
                 <div class="w-32 opacity-80 hover:opacity-100 transition-opacity">
-                     <img src="icone.png" alt="La Mordida" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+                     <!-- Atualizado para logo.png -->
+                     <img src="logo.png" alt="La Mordida" class="w-full h-auto" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
                 </div>
 
                 <div class="text-center md:text-right text-gray-500 text-sm">
@@ -615,7 +621,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Mini Carousel Logic ---
+        // --- Mini Carousel Logic (Updated with Click) ---
         function setupMiniCarousel(elementId, imagePrefix, count, fallbackKeyword) {
             const container = document.getElementById(elementId);
             if(!container) return;
@@ -646,13 +652,48 @@
             let current = 0;
             const images = container.querySelectorAll('img');
             
-            setInterval(() => {
+            // Função de troca de imagem
+            function changeImage(nextIndex) {
                 images[current].classList.remove('opacity-100');
                 images[current].classList.add('opacity-0');
-                current = (current + 1) % images.length;
+                current = nextIndex;
                 images[current].classList.remove('opacity-0');
                 images[current].classList.add('opacity-100');
+            }
+
+            // Auto-rotação
+            let autoInterval = setInterval(() => {
+                changeImage((current + 1) % images.length);
             }, 3500 + Math.random() * 1000);
+
+            // Adicionar lógica de clique no elemento pai (o card)
+            const parentCard = container.parentElement;
+            
+            // Tornar o cursor pointer para indicar que é clicável
+            parentCard.style.cursor = 'pointer';
+
+            parentCard.addEventListener('click', function(e) {
+                // Reiniciar o intervalo automático ao clicar
+                clearInterval(autoInterval);
+                autoInterval = setInterval(() => {
+                    changeImage((current + 1) % images.length);
+                }, 3500);
+
+                // Lógica de esquerda/direita
+                const rect = parentCard.getBoundingClientRect();
+                const x = e.clientX - rect.left; // posição x do clique dentro do elemento
+                const width = rect.width;
+
+                if (x > width / 2) {
+                    // Clique na direita -> Próxima imagem
+                    changeImage((current + 1) % images.length);
+                } else {
+                    // Clique na esquerda -> Imagem anterior
+                    let prevIndex = current - 1;
+                    if (prevIndex < 0) prevIndex = images.length - 1;
+                    changeImage(prevIndex);
+                }
+            });
         }
 
         setupMiniCarousel('cortes-slides', 'corte', 5, 'meat');
