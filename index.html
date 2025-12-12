@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br" class="scroll-smooth">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-5S6FS29P');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>La Mordida | Parrilla em Santana</title>
+    <title>La Mordida | Parrilla em Santana - São Paulo</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="icone.png" type="image/png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -61,6 +72,16 @@
             overflow-x: hidden;
         }
 
+        /* Estilo para o ícone de calendário ficar branco no fundo escuro */
+        ::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            opacity: 0.6;
+            cursor: pointer;
+        }
+        ::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -102,16 +123,43 @@
             height: 100%;
             position: relative;
         }
+
+        /* Mini Slide transition */
+        .mini-slide-img {
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Modal Blur Animation */
+        .modal-enter {
+            animation: modalFadeIn 0.3s forwards;
+        }
+        .modal-exit {
+            animation: modalFadeOut 0.3s forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; backdrop-filter: blur(0px); }
+            to { opacity: 1; backdrop-filter: blur(8px); }
+        }
+        @keyframes modalFadeOut {
+            from { opacity: 1; backdrop-filter: blur(8px); }
+            to { opacity: 0; backdrop-filter: blur(0px); }
+        }
     </style>
 </head>
 <body class="selection:bg-brand-blue selection:text-black">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5S6FS29P"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- Navbar -->
     <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-6 lg:px-12 bg-gradient-to-b from-black/90 to-transparent">
         <div class="container mx-auto flex justify-between items-center">
             <!-- LOGO -->
             <a href="#" class="block w-40 md:w-52 transition-transform hover:scale-105">
-                <img src="logo.png" alt="La Mordida Logo" class="w-full h-auto object-contain" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+                <img src="icone.png" alt="La Mordida Logo" class="w-12 h-auto object-contain inline-block mr-2 md:hidden">
+                <img src="logo.png" alt="La Mordida Logo" class="w-full h-auto object-contain hidden md:block" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
             </a>
 
             <!-- Menu Desktop -->
@@ -161,7 +209,7 @@
         <div class="container mx-auto px-6 relative z-20 text-center">
             <div class="mb-6 animate-[fadeInDown_1s_ease-out]">
                 <span class="px-4 py-1 border border-brand-blue rounded-full text-brand-blue text-[10px] font-bold tracking-[0.3em] uppercase bg-black/50 backdrop-blur-sm">
-                    Zona Norte • Santana
+                    Zona Norte • Santana - São Paulo
                 </span>
             </div>
             
@@ -171,7 +219,7 @@
             
             <p class="text-gray-300 text-sm md:text-lg max-w-xl mx-auto mb-12 font-light leading-relaxed animate-[fadeInUp_1.2s_ease-out]">
                 A autêntica parrilla argentina no coração de Santana. <br>
-                Cortes selecionados, ambiente acolhedor e vinhos excepcionais.
+                Cortes de carnes selecionadas, empanadas e vinhos em um ambiente acolhedor.
             </p>
             
             <div class="animate-[fadeInUp_1.4s_ease-out]">
@@ -188,56 +236,58 @@
         <div class="container mx-auto px-6">
             <div class="text-center mb-16 reveal">
                 <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">Experiência Gastronômica</span>
-                <h2 class="font-loubag text-5xl md:text-7xl">NOSSOS CORTES</h2>
+                <h2 class="font-loubag text-5xl md:text-7xl">NOSSO CARDÁPIO</h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-auto md:h-[800px]">
                 
-                <!-- Destaque: Almoco Executivo -->
-                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal">
+                <!-- Destaque: Almoco Executivo (Clicável para Modal) -->
+                <!-- A imagem aqui é 'almoco.webp' conforme solicitado -->
+                <div class="md:col-span-2 md:row-span-2 relative group overflow-hidden rounded-xl reveal cursor-pointer" onclick="openModal()">
                     <img src="almoco.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Almoço Executivo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-90"></div>
-                    <div class="absolute bottom-0 left-0 p-8">
-                        <h3 class="font-loubag text-4xl mb-2 text-white">ALMOÇO EXECUTIVO</h3>
-                        <p class="text-gray-400 text-sm max-w-sm">Entrada, prato principal e sobremesa. A experiência completa por um valor especial.</p>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70"></div>
+                    
+                    <!-- Ícone de "Ver Mais" -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-all duration-300 scale-50 group-hover:scale-100 z-30">
+                         <i class="fas fa-search-plus text-5xl text-brand-blue drop-shadow-lg"></i>
+                    </div>
+
+                    <div class="absolute bottom-0 left-0 p-8 z-20">
+                        <div class="flex flex-col md:flex-row md:items-end gap-2 md:gap-4 mb-2">
+                            <h3 class="font-loubag text-4xl text-white">ALMOÇO EXECUTIVO</h3>
+                            <span class="text-brand-blue font-semibold text-xs uppercase tracking-wide mb-2 md:mb-1">terça a sexta, 12h as 16h</span>
+                        </div>
+                        <p class="text-gray-400 text-sm max-w-sm">Entrada, prato principal e sobremesa. Clique para ver detalhes.</p>
                     </div>
                 </div>
 
-                <!-- Item 2: Bife de Chorizo -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-100">
-                    <img src="bife.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Bife de Chorizo" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558030006-450675393462?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="font-loubag text-2xl text-brand-blue">BIFE DE CHORIZO</h3>
+                <!-- Item 2: Nossos Cortes -->
+                <div class="md:col-span-2 relative group overflow-hidden rounded-xl reveal delay-100 bg-gray-900" id="cortes-container">
+                    <div class="absolute inset-0 w-full h-full" id="cortes-slides"></div>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
+                    <div class="absolute bottom-4 left-4 z-20">
+                        <h3 class="font-loubag text-3xl text-brand-blue">NOSSOS CORTES</h3>
                     </div>
                 </div>
 
                 <!-- Item 3: Entradas -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-200">
-                    <img src="entrada.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Empanadas" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1626804475297-411dbe6234ab?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
-                    <div class="absolute bottom-4 left-4">
+                <div class="relative group overflow-hidden rounded-xl reveal delay-200 bg-gray-900" id="entradas-container">
+                    <div class="absolute inset-0 w-full h-full" id="entradas-slides"></div>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
+                    <div class="absolute bottom-4 left-4 z-20">
                         <h3 class="font-loubag text-2xl text-brand-blue">ENTRADAS</h3>
                     </div>
                 </div>
 
-                <!-- Item 4: Bebidas -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-300">
-                    <img src="bebida.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Drinks" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
-                    <div class="absolute bottom-4 left-4">
-                        <h3 class="font-loubag text-2xl text-brand-blue">DRINKS</h3>
-                    </div>
-                </div>
-
-                <!-- Item 5: Sobremesas -->
-                <div class="relative group overflow-hidden rounded-xl reveal delay-400">
-                    <img src="sobremesa.webp" class="img-cover transition-transform duration-700 group-hover:scale-110" alt="Sobremesa" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?q=80&w=800&auto=format&fit=crop';">
-                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
-                    <div class="absolute bottom-4 left-4">
+                <!-- Item 4: Sobremesas -->
+                <div class="relative group overflow-hidden rounded-xl reveal delay-300 bg-gray-900" id="sobremesas-container">
+                     <div class="absolute inset-0 w-full h-full" id="sobremesas-slides"></div>
+                    <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors z-10"></div>
+                    <div class="absolute bottom-4 left-4 z-20">
                         <h3 class="font-loubag text-2xl text-brand-blue">SOBREMESAS</h3>
                     </div>
                 </div>
+
             </div>
             
             <div class="text-center mt-12 animate-[fadeInUp_1.4s_ease-out]">
@@ -313,32 +363,34 @@
                 <!-- Formulário -->
                 <div class="lg:w-1/2 w-full reveal delay-100">
                     <div class="bg-brand-surface p-8 md:p-12 border border-white/5 rounded-2xl shadow-2xl">
-                        <h3 class="font-loubag text-3xl mb-8 text-white">SOLICITAR EVENTO</h3>
+                        <h3 class="font-loubag text-3xl mb-8 text-white">SOLICITAR EVENTO / RESERVA</h3>
                         
-                        <form class="space-y-6">
+                        <!-- ID adicionado ao formulário -->
+                        <form class="space-y-6" id="reservationForm">
                             <div class="group">
                                 <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Nome</label>
-                                <input type="text" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="Seu nome">
+                                <input type="text" id="resName" required class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="Seu nome">
                             </div>
                             
                             <div class="grid grid-cols-2 gap-6">
                                 <div class="group">
                                     <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Data</label>
-                                    <input type="text" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="DD/MM">
+                                    <!-- Alterado para type="date" -->
+                                    <input type="date" id="resDate" required class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800">
                                 </div>
                                 <div class="group">
                                     <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Pessoas</label>
-                                    <input type="number" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="2">
+                                    <input type="number" id="resPeople" required min="1" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="2">
                                 </div>
                             </div>
                             
                             <div class="group">
                                 <label class="block text-[10px] font-bold uppercase tracking-widest text-brand-blue mb-2">Telefone</label>
-                                <input type="tel" class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="(11) 99999-9999">
+                                <input type="tel" id="resPhone" required class="w-full bg-brand-black border-b border-gray-700 p-3 text-white focus:outline-none focus:border-brand-blue transition-colors placeholder-gray-800" placeholder="(11) 99999-9999">
                             </div>
 
-                            <button class="w-full py-4 bg-brand-blue text-black font-bold uppercase tracking-widest hover:bg-white transition-all mt-4">
-                                Confirmar
+                            <button type="submit" class="w-full py-4 bg-brand-blue text-black font-bold uppercase tracking-widest hover:bg-white transition-all mt-4 hover:scale-[1.02]">
+                                Confirmar via WhatsApp <i class="fab fa-whatsapp ml-2"></i>
                             </button>
                         </form>
                     </div>
@@ -350,22 +402,18 @@
     <!-- Seção Localização & Visite -->
     <section id="localizacao" class="bg-brand-dark border-b border-white/5">
         <div class="grid md:grid-cols-2">
-            <!-- Coluna 1: Mapa (ATUALIZADO COM QUERY PARA Nº 274) -->
-            <div class="h-[600px] md:h-auto relative w-full group overflow-hidden">
+            <!-- Coluna 1: Mapa -->
+            <div class="h-[600px] md:h-auto relative w-full group overflow-hidden bg-brand-black">
+                <!-- Iframe do mapa mantido, funcional -->
                 <iframe 
                     src="https://maps.google.com/maps?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&z=17&output=embed" 
-                    class="w-full h-full grayscale invert brightness-75 contrast-125 group-hover:grayscale-0 group-hover:invert-0 transition-all duration-700" 
+                    class="w-full h-full grayscale invert brightness-75 contrast-125 group-hover:grayscale-0 group-hover:invert-0 transition-all duration-700 border-none" 
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
-                <div class="absolute top-4 left-4 bg-black/80 backdrop-blur px-4 py-2 rounded border-l-2 border-brand-blue pointer-events-none">
-                    <span class="text-white text-xs font-bold uppercase tracking-wide">Santana, SP</span>
-                </div>
             </div>
 
-            <!-- Coluna 2: Fachada + Info (Fundo alterado para gradiente) -->
+            <!-- Coluna 2: Fachada + Info -->
             <div class="relative h-[650px] md:h-[750px] group bg-gradient-to-br from-brand-surface via-brand-dark to-black">
-                <!-- Imagem removida -->
-                
                 <div class="absolute inset-0 flex flex-col justify-center p-12 md:p-20">
                     <div class="border-l-2 border-brand-blue pl-6 reveal">
                         <span class="text-brand-blue font-bold tracking-[0.2em] uppercase text-xs block mb-4">La Mordida Santana</span>
@@ -401,7 +449,6 @@
                                 <p class="text-gray-200 text-lg font-semibold">(11) 2308-6400</p>
                             </div>
 
-                            <!-- Botões de Navegação -->
                             <div class="pt-4">
                                 <h4 class="text-brand-blue font-bold uppercase text-[10px] tracking-widest mb-4 flex items-center gap-2">
                                     <i class="fas fa-location-arrow"></i> Como Chegar
@@ -428,11 +475,11 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
                 <div class="w-32 opacity-80 hover:opacity-100 transition-opacity">
-                     <img src="logo.png" alt="La Mordida" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
+                     <img src="icone.png" alt="La Mordida" onerror="this.onerror=null; this.src='https://placehold.co/200x80/000000/FFFFFF?text=La+Mordida';">
                 </div>
 
                 <div class="text-center md:text-right text-gray-500 text-sm">
-                    <p class="mb-1">Santana, São Paulo</p>
+                    <p class="mb-1">Santana - São Paulo, SP</p>
                     <p class="text-brand-blue font-bold">@lamordidaparrilla</p>
                 </div>
 
@@ -443,7 +490,6 @@
                     <a href="https://www.facebook.com/laMordidazn/?locale=pt_BR" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-facebook-f text-xl"></i>
                     </a>
-                    <!-- Botão Waze no Footer -->
                     <a href="https://waze.com/ul?q=R.+Prof.+Lourival+Gomes+Machado,+274+-+Santana,+Sao+Paulo&navigate=yes" target="_blank" class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-brand-blue hover:border-brand-blue transition-all">
                         <i class="fab fa-waze text-xl"></i>
                     </a>
@@ -464,9 +510,74 @@
         <i class="fab fa-whatsapp text-3xl"></i>
     </a>
 
+    <!-- MODAL DE ALMOÇO EXECUTIVO -->
+    <div id="modal-executivo" class="fixed inset-0 z-[60] hidden flex items-center justify-center bg-black/80 backdrop-blur p-4 transition-all duration-300">
+        <div class="relative max-w-4xl w-full animate-[fadeInUp_0.3s_ease-out]">
+            <!-- Botão Fechar -->
+            <button onclick="closeModal()" class="absolute -top-12 right-0 md:-right-8 text-white text-4xl hover:text-brand-blue transition-colors focus:outline-none">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <!-- Imagem -->
+            <!-- A imagem aqui é 'executivo.webp' conforme solicitado -->
+            <img src="executivo.png" alt="Menu Executivo Completo" class="w-full h-auto rounded-lg shadow-2xl border border-white/10" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1544025162-d76690b6d015?q=80&w=1200&auto=format&fit=crop';">
+        </div>
+        <!-- Clique fora para fechar -->
+        <div class="absolute inset-0 -z-10" onclick="closeModal()"></div>
+    </div>
+
     <!-- Scripts -->
     <script>
-        // Navbar Scroll
+        // --- Modal Logic ---
+        const modal = document.getElementById('modal-executivo');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Impede scroll
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Libera scroll
+        }
+
+        // Fechar com tecla ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // --- WhatsApp Form Logic ---
+        document.getElementById('reservationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('resName').value;
+            const dateInput = document.getElementById('resDate').value; // Retorna YYYY-MM-DD
+            const people = document.getElementById('resPeople').value;
+            const phone = document.getElementById('resPhone').value;
+
+            // Formatar data para DD/MM/AAAA
+            let formattedDate = dateInput;
+            if(dateInput) {
+                const parts = dateInput.split('-');
+                formattedDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+
+            // Construir mensagem
+            const message = `Olá! Gostaria de fazer uma reserva no La Mordida.%0A%0A` +
+                            `*Nome:* ${name}%0A` +
+                            `*Data:* ${formattedDate}%0A` +
+                            `*Qtd. Pessoas:* ${people}%0A` +
+                            `*Contato:* ${phone}%0A%0A` +
+                            `Aguardo confirmação!`;
+
+            // Número do restaurante
+            const whatsappNumber = '5511912100277';
+            
+            // Abrir WhatsApp
+            window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
+        });
+
+        // --- Navbar Scroll Logic ---
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
@@ -478,7 +589,7 @@
             }
         });
 
-        // Mobile Menu
+        // --- Mobile Menu Logic ---
         const mobileBtn = document.getElementById('mobile-btn');
         const closeMobile = document.getElementById('close-mobile');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -493,7 +604,7 @@
         closeMobile.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // Reveal Animation
+        // --- Reveal Animation ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -504,15 +615,56 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // --- Lógica do Carrossel de Ambiente ---
+        // --- Mini Carousel Logic ---
+        function setupMiniCarousel(elementId, imagePrefix, count, fallbackKeyword) {
+            const container = document.getElementById(elementId);
+            if(!container) return;
+            
+            for(let i=1; i<=count; i++) {
+                const img = document.createElement('img');
+                img.src = `${imagePrefix}${i}.webp`;
+                img.alt = `${imagePrefix} ${i}`;
+                img.className = `absolute inset-0 w-full h-full object-cover mini-slide-img ${i === 1 ? 'opacity-100' : 'opacity-0'}`;
+                
+                img.onerror = function() {
+                    this.onerror = null;
+                    if(fallbackKeyword === 'meat') {
+                         const fallbacks = ['1558030006-450675393462', '1600891964092-4316c288032e', '1544025162-d76690b6d015', '1615937651199-c0352542a8b9', '1504674900247-0877df9cc836'];
+                         this.src = `https://images.unsplash.com/photo-${fallbacks[i-1] || fallbacks[0]}?q=80&w=800&auto=format&fit=crop`;
+                    } else if(fallbackKeyword === 'appetizer') {
+                        const fallbacks = ['1626804475297-411dbe6234ab', '1541529086529-a7d67f8bbf12', '1604908176997-125f25cc6f3d', '1512621776951-a57141f2eefd', '1600891964599-f61ba0e24092'];
+                        this.src = `https://images.unsplash.com/photo-${fallbacks[i-1] || fallbacks[0]}?q=80&w=800&auto=format&fit=crop`;
+                    } else if(fallbackKeyword === 'dessert') {
+                        const fallbacks = ['1563729784474-d77dbb933a9e', '1551024601-5629f9720857', '1587314168485-3236d6710814', '1579306193752-64d7110183f9', '1551024506-0bccd828d307'];
+                        this.src = `https://images.unsplash.com/photo-${fallbacks[i-1] || fallbacks[0]}?q=80&w=800&auto=format&fit=crop`;
+                    }
+                };
+
+                container.appendChild(img);
+            }
+
+            let current = 0;
+            const images = container.querySelectorAll('img');
+            
+            setInterval(() => {
+                images[current].classList.remove('opacity-100');
+                images[current].classList.add('opacity-0');
+                current = (current + 1) % images.length;
+                images[current].classList.remove('opacity-0');
+                images[current].classList.add('opacity-100');
+            }, 3500 + Math.random() * 1000);
+        }
+
+        setupMiniCarousel('cortes-slides', 'corte', 5, 'meat');
+        setupMiniCarousel('entradas-slides', 'entrada', 5, 'appetizer');
+        setupMiniCarousel('sobremesas-slides', 'sobremesa', 5, 'dessert');
+
+        // --- Main Carousel Logic ---
         const track = document.getElementById('carouselTrack');
         const dotsContainer = document.getElementById('carouselDots');
-        
-        // Gerar 6 imagens (ambiente1.webp até ambiente6.webp)
         const imagesCount = 6;
         let currentSlide = 0;
 
-        // Fallback de imagens bonitas caso não existam as imagens locais
         const unsplashFallbacks = [
             'photo-1517248135467-4c7edcad34c4',
             'photo-1559339352-11d035aa65de',
@@ -525,7 +677,6 @@
         ];
 
         for (let i = 1; i <= imagesCount; i++) {
-            // Criar Slide
             const slide = document.createElement('div');
             slide.classList.add('carousel-slide');
             const img = document.createElement('img');
@@ -533,7 +684,6 @@
             img.alt = `Ambiente La Mordida ${i}`;
             img.classList.add('w-full', 'h-full', 'object-cover');
             
-            // Adicionar fallback para você ver o funcionamento agora
             const fallbackId = unsplashFallbacks[i-1];
             img.onerror = function() {
                 this.onerror = null;
@@ -543,7 +693,6 @@
             slide.appendChild(img);
             track.appendChild(slide);
 
-            // Criar Dot
             const dot = document.createElement('button');
             dot.classList.add('w-2', 'h-2', 'rounded-full', 'bg-white/50', 'hover:bg-brand-blue', 'transition-colors');
             dot.addEventListener('click', () => goToSlide(i - 1));
@@ -554,12 +703,10 @@
 
         function updateCarousel() {
             track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            
-            // Atualizar Dots
             dots.forEach((dot, index) => {
                 if (index === currentSlide) {
                     dot.classList.remove('bg-white/50');
-                    dot.classList.add('bg-brand-blue', 'w-6'); // Active state
+                    dot.classList.add('bg-brand-blue', 'w-6');
                 } else {
                     dot.classList.add('bg-white/50');
                     dot.classList.remove('bg-brand-blue', 'w-6');
@@ -577,10 +724,7 @@
         document.getElementById('prevBtn').addEventListener('click', () => goToSlide(currentSlide - 1));
         document.getElementById('nextBtn').addEventListener('click', () => goToSlide(currentSlide + 1));
 
-        // Auto play opcional (a cada 15 segundos)
         setInterval(() => goToSlide(currentSlide + 1), 15000);
-
-        // Inicializar
         updateCarousel();
     </script>
 </body>
